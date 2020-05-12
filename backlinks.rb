@@ -1,14 +1,10 @@
-# Backlink Builder
-
 BACKLINKS_MARKER = "♻︎ Backlinks"
-PATH_TO_NOTEPLAN = "."
-# PATH_TO_NOTEPLAN = "/Users/ale/Library/Mobile Documents/iCloud~co~noteplan~NotePlan/Documents"
+
+PATH_TO_NOTEPLAN = "#{ENV['HOME']}/Library/Mobile Documents/iCloud~co~noteplan~NotePlan/Documents"
 PATH_TO_NOTES = "#{PATH_TO_NOTEPLAN}/Notes"
 PATH_TO_CALENDAR = "#{PATH_TO_NOTEPLAN}/Calendar"
 
 REGEX_LINK = /(\[\[[^\]]+\]\])/
-# REGEX_LINK = /(\[\[[^\]]+\]\])/
-# REGEX_LINK = Regexp.new(/(\[\[([^\]\]]+)\]\])/, Regexp::MULTILINE)
 REGEX_BACKLINKS = /\n\n#{BACKLINKS_MARKER}\n(.+\n)+#{BACKLINKS_MARKER}/
 
 def all_note_files
@@ -31,7 +27,7 @@ end
 
 def links_from_file file
   contents = file_contents(file)
-  # obviously, we need to ignore the Backlinks block!
+  # obviously, we need to ignore the Backlinks block
   contents.gsub!(REGEX_BACKLINKS,"")
 
   file_links = []
