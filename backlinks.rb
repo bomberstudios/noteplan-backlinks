@@ -1,5 +1,6 @@
 # Backlink Builder
 
+BACKLINKS_MARKER = "♻︎ Backlinks"
 PATH_TO_NOTEPLAN = "."
 # PATH_TO_NOTEPLAN = "/Users/ale/Library/Mobile Documents/iCloud~co~noteplan~NotePlan/Documents"
 PATH_TO_NOTES = "#{PATH_TO_NOTEPLAN}/Notes"
@@ -50,13 +51,13 @@ def links_from_file file
 end
 
 def update_backlinks_block(file, links)
-  backlink_block_regex = /\n\n♻︎ Backlinks\n(.+\n)+♻︎ Backlinks/
+  backlink_block_regex = /\n\n#{BACKLINKS_MARKER}\n(.+\n)+#{BACKLINKS_MARKER}/
 
-  backlink_block = "\n\n♻︎ Backlinks\n"
+  backlink_block = "\n\n#{BACKLINKS_MARKER}\n"
   links.sort.each do |link|
     backlink_block << "- #{link}\n"
   end
-  backlink_block << "♻︎ Backlinks\n"
+  backlink_block << "#{BACKLINKS_MARKER}\n"
 
   contents = file_contents(file)
 
