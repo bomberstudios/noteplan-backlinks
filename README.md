@@ -1,6 +1,8 @@
 # NotePlan Backlinks
 
-This script automates the creation of backlinks between NotePlan notes
+This script automates the creation of backlinks between NotePlan notes.
+
+- [ ] Support Calendar?
 
 ```
 ----

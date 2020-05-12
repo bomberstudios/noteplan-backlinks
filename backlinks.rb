@@ -94,11 +94,7 @@ all_note_files.each do |file|
   # 2. For each page, check the database for links that point at that page
   links_to_page = link_database[note_title]
   if links_to_page
-    # puts note_title
     # 3. Bake backlinks in note file, replacing existing Backlinks (otherwise you end up with repeated backlinks)
     update_backlinks_block(file, links_to_page)
   end
 end
-
-# puts link_database
-
