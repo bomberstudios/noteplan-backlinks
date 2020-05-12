@@ -28,7 +28,6 @@ Save that in `~/Library/Scripts/` and enable the Scripts Menu in Script Editor �
 By default, backlinks will be added at the end of your notes, with this format:
 
 ```
-
 ♻︎ Backlinks
 - [[Link One]]
 - [[Link Two]]
@@ -43,3 +42,5 @@ The script assumes your Notes are synced using iCloud. If you're using Dropbox, 
 ## Roadmap
 
 - [ ] Support Calendar notes
+- [ ] Option to remove backlinks from all notes
+
