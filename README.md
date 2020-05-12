@@ -11,6 +11,18 @@ Disclaimer: I take absolutely no responsibility for any data loss. I assume you 
 - Download the `backlinks.rb` file somewhere to your disk
 - Open a Terminal, and run `ruby backlinks.rb`
 
+Alternatively, you can create an AppleScript file with this content (adjusting the path to your `ruby` binary and to your `backlinks.rb` file):
+
+```applescript
+tell application "NotePlan"
+	do shell script "LC_CTYPE='en_US.UTF-8' ruby /path/to/backlinks.rb"
+end tell
+```
+
+Save that in `~/Library/Scripts/` and enable the Scripts Menu in Script Editor › Preferences › General. You’ll now have something like this on your main menu, and updating the backlinks will only take you two clicks:
+
+![](docs/main-menu.png)
+
 ## Customization
 
 By default, backlinks will be added at the end of your notes, with this format:
