@@ -52,10 +52,8 @@ def update_backlinks_block(file, links)
   contents = file_contents(file)
 
   if contents.match(REGEX_BACKLINKS)
-    # puts "File already has a backlinks block, updating"
-    contents.gsub(REGEX_BACKLINKS, backlink_block)
+    contents.gsub!(REGEX_BACKLINKS, backlink_block)
   else
-    # puts "File has no backlinks block, creating"
     contents << backlink_block
   end
 
@@ -86,6 +84,7 @@ end
 all_note_files.each do |file|
   # 2. For each page, check the database for links that point at that page
   note_title = title_from_note_file(file)
+
   links_to_page = link_database.select { |link|
     link[:to] == "[[#{note_title}]]"
   }.map { |link|
