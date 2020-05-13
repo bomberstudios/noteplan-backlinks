@@ -1,11 +1,12 @@
-BACKLINKS_MARKER = "♻︎ Backlinks"
+BACKLINKS_MARKER = "♻︎ Backlinks:"
+BACKLINKS_CLOSE = "♻︎"
 
 PATH_TO_NOTEPLAN = "#{ENV['HOME']}/Library/Mobile Documents/iCloud~co~noteplan~NotePlan/Documents"
 PATH_TO_NOTES = "#{PATH_TO_NOTEPLAN}/Notes"
 PATH_TO_CALENDAR = "#{PATH_TO_NOTEPLAN}/Calendar"
 
 REGEX_LINK = /(\[\[[^\]]+\]\])/
-REGEX_BACKLINKS = /\n\n#{BACKLINKS_MARKER}\n(.+\n)+#{BACKLINKS_MARKER}/
+REGEX_BACKLINKS = /\n\n#{BACKLINKS_MARKER}\n(.+\n)+#{BACKLINKS_CLOSE}/
 
 def all_note_files
   Dir.glob("#{PATH_TO_NOTES}/**/*.{txt,md}").sort
@@ -45,9 +46,9 @@ end
 def update_backlinks_block(file, links)
   backlink_block = "\n\n#{BACKLINKS_MARKER}\n"
   links.sort.each do |link|
-    backlink_block << "- #{link}\n"
+    backlink_block << "⇱ #{link}\n"
   end
-  backlink_block << "#{BACKLINKS_MARKER}\n"
+  backlink_block << "#{BACKLINKS_CLOSE}\n"
 
   contents = file_contents(file)
 
