@@ -8,7 +8,7 @@ REGEX_LINK = /(\[\[[^\]]+\]\])/
 REGEX_BACKLINKS = /\n\n#{BACKLINKS_MARKER}\n(.+\n)+#{BACKLINKS_MARKER}/
 
 def all_note_files
-  Dir.glob("#{PATH_TO_NOTES}/**.{txt,md}").sort
+  Dir.glob("#{PATH_TO_NOTES}/**/*.{txt,md}").sort
 end
 
 def file_contents file
