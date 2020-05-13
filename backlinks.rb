@@ -16,7 +16,7 @@ def file_contents file
 end
 
 def title_from_note_file file
-  first_line = File.readlines(file).first
+  first_line = File.readlines(file).first || ""
   title = first_line.gsub("# ","").strip
   return title
 end
@@ -69,6 +69,8 @@ all_note_files.each do |file|
   # 1. Build a database of all links in all pages
   note_title = title_from_note_file(file)
 
+  next if note_title.empty?
+
   if has_links(file)
     links = links_from_file(file)
     links.each do |link|
@@ -84,6 +86,8 @@ end
 all_note_files.each do |file|
   # 2. For each page, check the database for links that point at that page
   note_title = title_from_note_file(file)
+
+  next if note_title.empty?
 
   links_to_page = link_database.select { |link|
     link[:to] == "[[#{note_title}]]"
