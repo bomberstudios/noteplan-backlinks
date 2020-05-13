@@ -43,4 +43,5 @@ The script assumes your Notes are synced using iCloud. If you're using Dropbox, 
 
 - [ ] Support Calendar notes
 - [ ] Option to remove backlinks from all notes
+- [ ] Read Backlinks template from a NotePlan note (this was something VoodooPad did, and I think it's brilliant)
 
