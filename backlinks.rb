@@ -58,7 +58,7 @@ def update_backlinks_block(file, links)
   end
 
   File.open(file, 'w') do |f|
-    f << contents
+    f << contents.strip
   end
 
 end
