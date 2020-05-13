@@ -90,7 +90,7 @@ all_note_files.each do |file|
   next if note_title.empty?
 
   links_to_page = link_database.select { |link|
-    link[:to] == "[[#{note_title}]]"
+    link[:to].downcase == "[[#{note_title}]]".downcase
   }.map { |link|
     link[:from]
   }.uniq
