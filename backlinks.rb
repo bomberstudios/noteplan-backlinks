@@ -1,3 +1,4 @@
+start = Time.now
 BACKLINKS_MARKER = "♻︎ Backlinks"
 
 PATH_TO_NOTEPLAN = "#{ENV['HOME']}/Library/Mobile Documents/iCloud~co~noteplan~NotePlan/Documents"
@@ -8,17 +9,30 @@ REGEX_LINK = /(\[\[[^\]]+\]\])/
 REGEX_BACKLINKS = /\n\n#{BACKLINKS_MARKER}\n(.+\n)+#{BACKLINKS_MARKER}/
 
 def all_note_files
-  Dir.glob("#{PATH_TO_NOTES}/**/*.{txt,md}").sort
+  notes = Dir.glob("#{PATH_TO_NOTES}/**/*.{txt,md}")
+  calendar = Dir.glob("#{PATH_TO_CALENDAR}/**/*.{txt,md}")
+  return notes + calendar
 end
 
 def file_contents file
   File.read(file)
 end
 
+def is_calendar file
+  File.dirname(file).match?("Calendar")
+end
+
 def title_from_note_file file
-  first_line = File.readlines(file).first || ""
-  title = first_line.gsub("# ","").strip
-  return title
+  if is_calendar(file)
+    date = File.basename(file,'.*')
+    year = date[0..3]
+    month = date[4..5]
+    day = date[6..7]
+    return "#{year}-#{month}-#{day}"
+  else
+    first_line = File.readlines(file).first || ""
+    return first_line.gsub(/#+/,"").strip
+  end
 end
 
 def has_links file
@@ -63,41 +77,42 @@ def update_backlinks_block(file, links)
 
 end
 
-link_database = []
-
-all_note_files.each do |file|
-  # 1. Build a database of all links in all pages
-  note_title = title_from_note_file(file)
-
-  next if note_title.empty?
-
-  if has_links(file)
-    links = links_from_file(file)
-    links.each do |link|
-      link_database.push({
-        :from => "[[#{note_title}]]",
-        :to => link
-      })
+def get_link_database
+  link_database = []
+  all_note_files.each do |file|
+    note_title = title_from_note_file(file)
+    next if note_title.empty?
+    if has_links(file)
+      links = links_from_file(file)
+      links.each do |link|
+        link_database.push({
+          :from => "[[#{note_title}]]",
+          :to => link
+        })
+      end
     end
   end
-
+  return link_database
 end
 
-all_note_files.each do |file|
-  # 2. For each page, check the database for links that point at that page
-  note_title = title_from_note_file(file)
-
-  next if note_title.empty?
-
+def links_to_page title, link_database
   links_to_page = link_database.select { |link|
-    link[:to].downcase == "[[#{note_title}]]".downcase
+    link[:to].downcase == "[[#{title}]]".downcase
   }.map { |link|
     link[:from]
   }.uniq
+  return links_to_page
+end
 
-  # 3. Bake backlinks in note file, replacing existing Backlinks (otherwise you end up with repeated backlinks)
+link_database = get_link_database()
+
+all_note_files.each do |file|
+  note_title = title_from_note_file(file)
+  next if note_title.empty?
+  links_to_page = links_to_page(note_title, link_database)
   if links_to_page.length > 0
     update_backlinks_block(file, links_to_page)
   end
-
 end
+
+puts "Updated backlinks for #{all_note_files.size} notes in #{Time.now - start} seconds"
