@@ -15,7 +15,7 @@ def all_note_files
 end
 
 def file_contents file
-  File.read(file)
+  File.read(file).strip
 end
 
 def is_calendar file
