@@ -11,7 +11,7 @@ Disclaimer: I take absolutely no responsibility for any data loss. I assume you 
 - Download the `backlinks.rb` file somewhere to your disk
 - Open a Terminal, and run `ruby backlinks.rb`
 
-Alternatively, you can create an AppleScript file with this content (adjusting the path to your `ruby` binary and to your `backlinks.rb` file):
+Alternatively, you can save this code as `~/Library/Scripts/Applications/NotePlan 2/Update Backlinks.scpt` (adjusting the path to your `ruby` binary and to your `backlinks.rb` file):
 
 ```applescript
 tell application "NotePlan"
@@ -19,7 +19,7 @@ tell application "NotePlan"
 end tell
 ```
 
-Save that in `~/Library/Scripts/` and enable the Scripts Menu in Script Editor › Preferences › General. You’ll now have something like this on your main menu, and updating the backlinks will only take you two clicks:
+Then, enable the Scripts Menu in Script Editor › Preferences › General. You’ll now have something like this on your main menu, and updating the backlinks will only take you two clicks:
 
 ![](docs/main-menu.png)
 
@@ -45,3 +45,4 @@ The script assumes your Notes are synced using iCloud. If you're using Dropbox, 
 - [ ] Option to remove backlinks from all notes
 - [ ] Read Backlinks template from a NotePlan note (this was something VoodooPad did, and I think it's brilliant)
 - [ ] Update script remotely? This may not be worth the trouble of implementing, but on the other hand it would be nice to know if you're running an outdated version…
+- [ ] Exclude pages: a list of pages you don't want to add Backlinks to
