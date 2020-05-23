@@ -35,6 +35,25 @@ def title_from_note_file file
   end
 end
 
+def clean_line line
+  # TODO: remove `@done()`, etc
+  # TODO: Use a Regex, FFS
+  return line
+    .gsub('- [ ] ','')
+    .gsub('- [x] ','')
+    .gsub('- [-] ','')
+    .gsub('- [>] ','')
+    .gsub('* [ ] ','')
+    .gsub('* [x] ','')
+    .gsub('* [-] ','')
+    .gsub('* [>] ','')
+    .gsub('- ','')
+    .gsub('* ','')
+    .gsub('#### ','')
+    .gsub('### ','')
+    .gsub('## ','')
+    .gsub('# ','')
+end
 def has_links file
   REGEX_LINK.match?(File.read(file))
 end
@@ -49,7 +68,10 @@ def links_from_file file
     if REGEX_LINK.match?(line)
       links = line.scan(REGEX_LINK).flatten
       links.each do |link|
-        file_links.push(link)
+        file_links.push({
+          :to => link,
+          :line => line
+        })
       end
     end
   end
@@ -61,8 +83,12 @@ def update_backlinks_block(file, links)
   atime = File.atime(file)
 
   backlink_block = "\n\n#{BACKLINKS_MARKER}\n"
-  links.sort.each do |link|
-    backlink_block << "- #{link}\n"
+  links.sort_by { |link| link[:from].downcase }.each do |link|
+    backlink_block << "- #{link[:from]}"
+    if link[:from] != link[:line]
+      backlink_block << ": #{clean_line(link[:line])}"
+    end
+    backlink_block << "\n"
   end
   backlink_block << "#{BACKLINKS_MARKER}\n"
 
@@ -91,7 +117,8 @@ def get_link_database
       links.each do |link|
         link_database.push({
           :from => "[[#{note_title}]]",
-          :to => link
+          :to => link[:to],
+          :line => link[:line]
         })
       end
     end
@@ -102,8 +129,6 @@ end
 def links_to_page title, link_database
   links_to_page = link_database.select { |link|
     link[:to].downcase == "[[#{title}]]".downcase
-  }.map { |link|
-    link[:from]
   }.uniq
   return links_to_page
 end
