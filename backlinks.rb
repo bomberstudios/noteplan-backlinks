@@ -57,6 +57,9 @@ def links_from_file file
 end
 
 def update_backlinks_block(file, links)
+  mtime = File.mtime(file)
+  atime = File.atime(file)
+
   backlink_block = "\n\n#{BACKLINKS_MARKER}\n"
   links.sort.each do |link|
     backlink_block << "- #{link}\n"
@@ -74,7 +77,8 @@ def update_backlinks_block(file, links)
   File.open(file, 'w') do |f|
     f << contents.strip
   end
-
+  # Restore modification date so NotePlan does not change the note order
+  File.utime(atime, mtime, file)
 end
 
 def get_link_database
