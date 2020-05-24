@@ -53,6 +53,9 @@ def clean_line line
     .gsub('### ','')
     .gsub('## ','')
     .gsub('# ','')
+    .gsub(/>\d\d\d\d-\d\d-\d\d/,'')
+    .gsub(/<\d\d\d\d-\d\d-\d\d/,'')
+    .strip
 end
 def has_links file
   REGEX_LINK.match?(File.read(file))
