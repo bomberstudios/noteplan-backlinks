@@ -15,7 +15,7 @@ Alternatively, you can save this code as `~/Library/Scripts/Applications/NotePla
 
 ```applescript
 tell application "NotePlan"
-	do shell script "LC_CTYPE='en_US.UTF-8' ruby /path/to/backlinks.rb"
+  do shell script "LC_CTYPE='en_US.UTF-8' ruby /path/to/backlinks.rb"
 end tell
 ```
 
@@ -39,10 +39,13 @@ To change it, edit the `BACKLINKS_MARKER` constant in the first line of `backlin
 
 The script assumes your Notes are synced using iCloud. If you're using Dropbox, you'll want to adjust the path in `PATH_TO_NOTEPLAN`.
 
+## Changelog
+- [x] 2020-05-24: The script now displays the line where a link appears on the source page, so you have some context for your backlinks
+- [x] 2020-05-15: Added support for Calendar notes
+
 ## Roadmap
 
-- [x] Support Calendar notes
+- [ ] Exclude pages: a list of pages you don't want to add Backlinks to
 - [ ] Option to remove backlinks from all notes
 - [ ] Read Backlinks template from a NotePlan note (this was something VoodooPad did, and I think it's brilliant)
 - [ ] Update script remotely? This may not be worth the trouble of implementing, but on the other hand it would be nice to know if you're running an outdated version…
-- [ ] Exclude pages: a list of pages you don't want to add Backlinks to
