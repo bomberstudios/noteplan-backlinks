@@ -1,5 +1,5 @@
-start = Time.now
 BACKLINKS_MARKER = "♻︎ Backlinks"
+EXCLUDE_PAGES = ["inbox"]
 
 PATH_TO_NOTEPLAN = "#{ENV['HOME']}/Library/Mobile Documents/iCloud~co~noteplan~NotePlan/Documents"
 PATH_TO_NOTES = "#{PATH_TO_NOTEPLAN}/Notes"
@@ -136,13 +136,14 @@ def links_to_page title, link_database
   return links_to_page
 end
 
+start = Time.now
 link_database = get_link_database()
 
 all_note_files.each do |file|
   note_title = title_from_note_file(file)
   next if note_title.empty?
   links_to_page = links_to_page(note_title, link_database)
-  if links_to_page.length > 0
+  if links_to_page.length > 0 && !EXCLUDE_PAGES.include?(note_title)
     update_backlinks_block(file, links_to_page)
   end
 end

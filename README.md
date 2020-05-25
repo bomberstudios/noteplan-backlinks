@@ -25,6 +25,8 @@ Then, enable the Scripts Menu in Script Editor › Preferences › General. You�
 
 ## Customization
 
+### Formatting
+
 By default, backlinks will be added at the end of your notes, with this format:
 
 ```
@@ -39,13 +41,19 @@ To change it, edit the `BACKLINKS_MARKER` constant in the first line of `backlin
 
 The script assumes your Notes are synced using iCloud. If you're using Dropbox, you'll want to adjust the path in `PATH_TO_NOTEPLAN`.
 
+### Exclude Pages
+
+If you want to stop backlinks from appearing on some pages, you can add them to the list of excluded pages. To do that, open `backlinks.rb` and add the page name to the `EXCLUDE_PAGES` array at the top.
+
+
 ## Changelog
+
+- [x] 2020-05-25: Added support for exclude pages: a list of pages you don't want to add Backlinks to
 - [x] 2020-05-24: The script now displays the line where a link appears on the source page, so you have some context for your backlinks
 - [x] 2020-05-15: Added support for Calendar notes
 
 ## Roadmap
 
-- [ ] Exclude pages: a list of pages you don't want to add Backlinks to
 - [ ] Option to remove backlinks from all notes
 - [ ] Read Backlinks template from a NotePlan note (this was something VoodooPad did, and I think it's brilliant)
 - [ ] Update script remotely? This may not be worth the trouble of implementing, but on the other hand it would be nice to know if you're running an outdated version…
