@@ -1,6 +1,6 @@
 # NotePlan Backlinks
 
-This script automates the creation of backlinks between NotePlan notes and calendar entries.
+This script automates the creation of backlinks between NotePlan notes (including calendar entries).
 
 Disclaimer: I take absolutely no responsibility for any data loss. I assume you have backups, and know that running random code from the internet against your valuable data is generally considered a bad idea. Having said that, I use this with my own data and it _seems_ to work 🤞
 
